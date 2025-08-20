@@ -23,7 +23,7 @@ LEARNING_RATE = 0.01
 X = [(0,0), (0,1), (1,0), (1,1)]
 
 
-class PerceptronAbove:
+class Perceptron:
     def __init__(self):
         # thanks python libraries for random
         self.x_weight = random.uniform(0,1)
@@ -34,13 +34,12 @@ class PerceptronAbove:
         return 1 if x >= 0 else 0
     
     def predict(self, x_input, y_input):
-        # calculate weighted sum multplying weight vetor with input vector
+        # calculate weighted sum multiplying weight vetor with input vector
         weighted_sum = self.x_weight * x_input + self.y_weight * y_input + self.bias
         return self.step_function(weighted_sum)
     
     def train(self, X, y1):
         maxEpochs = 10000
-        minEpochs = 5
         epochs = 0
 
         while epochs < maxEpochs:
@@ -62,55 +61,17 @@ class PerceptronAbove:
     
 # targets for above
 y1 = [0, 1, 1, 1]
-
-class PerceptronBelow:
-    def __init__(self):
-        # thanks python libraries for random
-        self.x_weight = random.uniform(0,1)
-        self.y_weight = random.uniform(0,1)
-        self.bias = random.uniform(0,1)
-
-    def step_function(self, x):
-        return 1 if x <= 0 else 0
-    
-    def predict(self, x_input, y_input):
-        # calculate weighted sum multplying weight vetor with input vector
-        weighted_sum = self.x_weight * x_input + self.y_weight * y_input + self.bias
-        return self.step_function(weighted_sum)
-    
-    def train(self, X, y2):
-        maxEpochs = 10000
-        minEpochs = 5
-        epochs = 0
-
-        while epochs < maxEpochs:
-            totalErrors = 0
-            for (x_input, y_input), target in zip(X, y2):
-                y_pred = self.predict(x_input, y_input)
-                error = target - y_pred
-                if error != 0:
-                    self.x_weight += error * LEARNING_RATE * x_input
-                    self.y_weight += error * LEARNING_RATE * y_input
-                    self.bias += error * LEARNING_RATE
-                    totalErrors += 1
-
-            epochs += 1
-            print("total errors: ", totalErrors)
-            if totalErrors == 0:
-                print("epoch #: ", epochs)
-                break
-
 # targets for below
 y2 = [1, 1, 1, 0]
 
-p_test_above = PerceptronAbove()
+p_test_above = Perceptron()
 p_test_above.train(X, y1)
 
 # chatgpt created print line modified to test above perceptron
 for x_input, y_input in X:
     print(f"Input: ({x_input}, {y_input}), Prediction: {p_test_above.predict(x_input, y_input)}")
 
-p_test_below = PerceptronBelow()
+p_test_below = Perceptron()
 p_test_below.train(X, y2)
 
 # chatgpt created print line modified to test below perceptron
