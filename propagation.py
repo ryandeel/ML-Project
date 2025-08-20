@@ -1,5 +1,9 @@
 import math
 import random
+'''
+weighted sum is z
+h is hidden layer
+'''
 
 LEARNING_RATE = 0.01
 BIAS = 1
@@ -13,15 +17,19 @@ def sig_der(x):
 def cost(y_hat,y):
     return (y_hat-y)**2
 
-def cost_der(i,y_hat,y):
-    return 2*i*(y_hat-y)
+def cost_der(y_hat,y):
+    return 2*(y_hat-y)
 
 def weighted_sum(bias, weights, inputs):
-    sum = 0
-    for input in range(inputs):
-        sum += input * weights[input]
-    return sum + bias
+    weightSum = 0
+    for i in range(len(inputs)):
+        for j in range(len(inputs[i])):
+            weightSum += inputs[i][j] * weights[i][j]
+    return weightSum + bias
         
+def out_err_grad(y_hat, y):
+     return cost_der(y_hat, y) * sig_der(y_hat)
+
 def hid_err_grad(inputs, y_hat, y, output_weight, weight_sum):
     return out_err_grad(inputs, y_hat, y) * output_weight * sig_der(sig(weight_sum))
     
