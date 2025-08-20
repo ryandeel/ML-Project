@@ -11,8 +11,11 @@ since u know more than me abt this blaise i think u will know what im doing wron
 i got the above one to work but not the below one
 
 '''
-import numpy as np
+import math
 import random
+
+def sigmoid(x):
+    return 1 / (1 + math.exp(-x))
 
 LEARNING_RATE = 0.01
 
