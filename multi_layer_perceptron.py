@@ -33,12 +33,11 @@ class MultiLayerPerceptron:
 
         for epochs in range(maxEpochs):
             totalErrors = 0
-            for (x_input, y_input), target in zip(X, y1):
-                y_pred = self.predict(x_input, y_input)
+            for xi, target in zip(X, y1):
+                y_pred = self.predict(xi)
                 error = target - y_pred
                 if error != 0:
-                    self.x_weight += error * prop.LEARNING_RATE * x_input
-                    self.y_weight += error * prop.LEARNING_RATE * y_input
+                    self.weights += error * prop.LEARNING_RATE * xi
                     self.bias += error * prop.LEARNING_RATE
                     totalErrors += 1
 
