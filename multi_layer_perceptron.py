@@ -7,7 +7,7 @@ learning rate, bias, and weights
 '''
 import random
 import numpy as np
-import propagation.py as prop
+import propagation as prop
 
 # truth table
 X = [(0,0), (0,1), (1,0), (1,1)]
