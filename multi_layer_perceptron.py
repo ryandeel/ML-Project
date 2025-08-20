@@ -4,23 +4,9 @@ things needed for the perceptron:
 inputs for the xor case, points being (0,0) (0,1) (1,0) (1,1)
 learning rate, bias, and weights
 
-HI BLAISE and future me ok so im going to bed but like im not sure making two perceptron classes was the move ngl
-^ i think i should be using one general class and make two? i think the data is where the problem goes but 
-since u know more than me abt this blaise i think u will know what im doing wrong
-
-i got the above one to work but not the below one
-
 '''
-import math
 import random
-
-def sigmoid(x):
-    return 1 / (1 + math.exp(-x))
-
-def sigmoid_derivative(x):
-    return x * (1 - x)
-
-LEARNING_RATE = 0.01
+import propagation.py as prop
 
 # truth table
 X = [(0,0), (0,1), (1,0), (1,1)]
@@ -51,9 +37,9 @@ class MultiLayerPerceptron:
                 y_pred = self.predict(x_input, y_input)
                 error = target - y_pred
                 if error != 0:
-                    self.x_weight += error * LEARNING_RATE * x_input
-                    self.y_weight += error * LEARNING_RATE * y_input
-                    self.bias += error * LEARNING_RATE
+                    self.x_weight += error * prop.LEARNING_RATE * x_input
+                    self.y_weight += error * prop.LEARNING_RATE * y_input
+                    self.bias += error * prop.LEARNING_RATE
                     totalErrors += 1
 
             epochs += 1
