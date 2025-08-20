@@ -21,17 +21,23 @@ def cost_der(y_hat,y):
     return 2*(y_hat-y)
 
 def weighted_sum(bias, weights, inputs):
-    weightSum = 0
+    weight_sum = 0
     for i in range(len(inputs)):
         for j in range(len(inputs[i])):
-            weightSum += inputs[i][j] * weights[i][j]
-    return weightSum + bias
+            weight_sum += inputs[i][j] * weights[i][j]
+    return weight_sum + bias
         
 def out_err_grad(y_hat, y):
      return cost_der(y_hat, y) * sig_der(y_hat)
 
-def hid_err_grad(inputs, y_hat, y, output_weight, weight_sum):
-    return out_err_grad(inputs, y_hat, y) * output_weight * sig_der(sig(weight_sum))
+def hid_err_grad(y_hat, y, output_weight, weight_sum):
+    return out_err_grad(y_hat, y) * output_weight * sig_der(sig(weight_sum))
+
+def out_weight_grad(y_hat, y, weight_sum):
+    return out_err_grad(y_hat, y) * sig(weight_sum)
+
+def hid_weight_grad(input, y_hat, y, output_weight, weight_sum):
+    return hid_err_grad(y_hat, y, output_weight, weight_sum) * input
     
 
 
