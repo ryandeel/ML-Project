@@ -26,7 +26,7 @@ LEARNING_RATE = 0.01
 X = [(0,0), (0,1), (1,0), (1,1)]
 
 
-class Perceptron:
+class MultiLayerPerceptron:
     def __init__(self):
         # thanks python libraries for random
         self.x_weight = random.uniform(0,1)
@@ -45,7 +45,7 @@ class Perceptron:
         maxEpochs = 10000
         epochs = 0
 
-        while epochs < maxEpochs:
+        for epochs in range(maxEpochs):
             totalErrors = 0
             for (x_input, y_input), target in zip(X, y1):
                 y_pred = self.predict(x_input, y_input)
@@ -66,17 +66,3 @@ class Perceptron:
 y1 = [0, 1, 1, 1]
 # targets for below
 y2 = [1, 1, 1, 0]
-
-p_test_above = Perceptron()
-p_test_above.train(X, y1)
-
-# chatgpt created print line modified to test above perceptron
-for x_input, y_input in X:
-    print(f"Input: ({x_input}, {y_input}), Prediction: {p_test_above.predict(x_input, y_input)}")
-
-p_test_below = Perceptron()
-p_test_below.train(X, y2)
-
-# chatgpt created print line modified to test below perceptron
-for x_input, y_input in X:
-    print(f"Input: ({x_input}, {y_input}), Prediction: {p_test_below.predict(x_input, y_input)}")
