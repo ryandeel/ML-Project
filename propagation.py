@@ -3,16 +3,17 @@ import random
 '''
 weighted sum is z
 h is hidden layer
+
+That VEINY DIH <3 got me MOANIN'
 '''
 
 LEARNING_RATE = 0.01
-BIAS = 1
 
-def sig(x):
-    return 1 / (1 + math.exp(-x))
+def sig(weight_sum):
+    return 1 / (1 + math.exp(-weight_sum))
 
-def sig_der(x):
-    return x * (1 - x)
+def sig_der(y_hat):
+    return y_hat * (1 - y_hat)
 
 def cost(y_hat,y):
     return (y_hat-y)**2
@@ -27,19 +28,21 @@ def weighted_sum(bias, weights, inputs):
             weight_sum += inputs[i][j] * weights[i][j]
     return weight_sum + bias
         
-def out_err_grad(y_hat, y):
-     return cost_der(y_hat, y) * sig_der(y_hat)
+def out_err_grad(cost_derivative, sigmoid_derivative):
+     return cost_derivative * sigmoid_derivative
 
-def hid_err_grad(y_hat, y, output_weight, weight_sum):
-    return out_err_grad(y_hat, y) * output_weight * sig_der(sig(weight_sum))
+def hid_err_grad(output_error_gradient, output_weight, sigmoid_derivative):
+    return output_error_gradient * output_weight * sigmoid_derivative
 
-def out_weight_grad(y_hat, y, weight_sum):
-    return out_err_grad(y_hat, y) * sig(weight_sum)
+def out_weight_grad(output_error_gradient, hidden_layer):
+    #hidden layer likely just going to be passed as a sigmoid of a weighted sum
+    return output_error_gradient * hidden_layer
 
-def hid_weight_grad(input, y_hat, y, output_weight, weight_sum):
-    return hid_err_grad(y_hat, y, output_weight, weight_sum) * input
+def hid_weight_grad(corresponding_input, hidden_error_gradient):
+    return hidden_error_gradient * corresponding_input
     
-
+def update_bias(old_bias, gradient):
+    return old_bias - LEARNING_RATE*gradient
 
 
 
