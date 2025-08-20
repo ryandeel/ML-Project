@@ -4,10 +4,10 @@ import random
 LEARNING_RATE = 0.01
 BIAS = 1
 
-def sigmoid(x):
+def sig(x):
     return 1 / (1 + math.exp(-x))
 
-def sigmoid_derivative(x):
+def sig_der(x):
     return x * (1 - x)
 
 def cost(y_hat,y):
@@ -22,7 +22,9 @@ def weighted_sum(bias, weights, inputs):
         sum += input * weights[input]
     return sum + bias
         
-
+def hid_err_grad(inputs, y_hat, y, output_weight, weight_sum):
+    return out_err_grad(inputs, y_hat, y) * output_weight * sig_der(sig(weight_sum))
+    
 
 
 

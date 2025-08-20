@@ -6,6 +6,7 @@ learning rate, bias, and weights
 
 '''
 import random
+import numpy as np
 import propagation.py as prop
 
 # truth table
@@ -15,16 +16,15 @@ X = [(0,0), (0,1), (1,0), (1,1)]
 class MultiLayerPerceptron:
     def __init__(self):
         # thanks python libraries for random
-        self.x_weight = random.uniform(0,1)
-        self.y_weight = random.uniform(0,1)
+        self.weights = np.random.rand(2)
         self.bias = random.uniform(0,1)
 
     def step_function(self, x):
         return 1 if x >= 0 else 0
     
-    def predict(self, x_input, y_input):
+    def predict(self, x):
         # calculate weighted sum multiplying weight vetor with input vector
-        weighted_sum = self.x_weight * x_input + self.y_weight * y_input + self.bias
+        weighted_sum = np.dot(self.weights, x) + self.bias
         return self.step_function(weighted_sum)
     
     def train(self, X, y1):
