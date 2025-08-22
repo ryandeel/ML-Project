@@ -16,7 +16,7 @@ X = [(0,0), (0,1), (1,0), (1,1)]
 class MultiLayerPerceptron:
     def __init__(self):
         # thanks python libraries for random
-        #self.weights = np.random.rand(2) # commenting this, as it works for a singular layer if we want test it works but not for multiple
+        # self.weights = np.random.rand(2) # commenting this, as it works for a singular layer if we want test it works but not for multiple
 
         # self.weights_hidden add these
         # self.weights_output add these
@@ -34,13 +34,13 @@ class MultiLayerPerceptron:
         weighted_sum = np.dot(X, self.weights) + self.bias
         return self.step_function(weighted_sum)
     
-    def train(self, X, y1):
+    def train(self, X, y):
         maxEpochs = 10000
         epochs = 0
 
         for epochs in range(maxEpochs):
             totalErrors = 0
-            for xi, target in zip(X, y1):
+            for xi, target in zip(X, y):
                 y_pred = self.predict(xi)
                 error = target - y_pred
                 if error != 0:
@@ -57,6 +57,11 @@ class MultiLayerPerceptron:
             if totalErrors == 0:
                 print("epoch #: ", epochs)
                 break
+    
+    # def feed_forward(self):
+
+    # def back_propagation(self):
+    
     
 # targets for above
 y1 = [0, 1, 1, 1]
